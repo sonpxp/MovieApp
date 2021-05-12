@@ -2,15 +2,19 @@ package com.sonmob.movieapp.activities;
 
 import android.os.Bundle;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.sonmob.movieapp.R;
 import com.sonmob.movieapp.adapters.TVShowsAdapter;
 import com.sonmob.movieapp.databinding.ActivityMainBinding;
 import com.sonmob.movieapp.models.TVShow;
 import com.sonmob.movieapp.viewmodels.MostPopularTVShowsViewModel;
+
+import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,9 +23,10 @@ public class MainActivity extends AppCompatActivity {
 
     private ActivityMainBinding activityMainBinding;
     private MostPopularTVShowsViewModel viewModel;
-
     private final List<TVShow> tvShows = new ArrayList<>();
     private TVShowsAdapter tvShowsAdapter;
+    private int currentPage = 1;
+    private int totalAvailablePages = 1;
 
 
     @Override
@@ -36,20 +41,51 @@ public class MainActivity extends AppCompatActivity {
         viewModel = new ViewModelProvider(this).get(MostPopularTVShowsViewModel.class);
         tvShowsAdapter = new TVShowsAdapter(tvShows);
         activityMainBinding.tvShowRecyclerView.setAdapter(tvShowsAdapter);
+        activityMainBinding.tvShowRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull @NotNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (!activityMainBinding.tvShowRecyclerView.canScrollVertically(1)){
+                    if (currentPage <= totalAvailablePages){
+                        currentPage +=1;
+                        getMostPopularTVShow();
+                    }
+                }
+            }
+        });
         getMostPopularTVShow();
 
     }
 
     private void getMostPopularTVShow() {
-        activityMainBinding.setIsLoading(true);
-        viewModel.getPopularTVShows(0).observe(this, mostPopularTVShowsRespose -> {
-            activityMainBinding.setIsLoading(false);
+        toggleLoading();
+        viewModel.getPopularTVShows(currentPage).observe(this, mostPopularTVShowsRespose -> {
+            toggleLoading();
             if (mostPopularTVShowsRespose != null) {
+                totalAvailablePages = mostPopularTVShowsRespose.getTotalPages();
                 if (mostPopularTVShowsRespose.getTvShows() != null) {
+                    int oldCount = tvShows.size();
                     tvShows.addAll(mostPopularTVShowsRespose.getTvShows());
-                    tvShowsAdapter.notifyDataSetChanged();
+                    //tvShowsAdapter.notifyDataSetChanged();
+                    tvShowsAdapter.notifyItemRangeInserted(oldCount, tvShows.size());
                 }
             }
         });
+    }
+
+    private void toggleLoading(){
+        if (currentPage == 1){
+            if (activityMainBinding.getIsLoading() != null && activityMainBinding.getIsLoading()){
+                activityMainBinding.setIsLoading(false);
+            }else {
+                activityMainBinding.setIsLoading(true);
+            }
+        }else {
+            if (activityMainBinding.getIsLoadingMore() != null && activityMainBinding.getIsLoadingMore()){
+                activityMainBinding.setIsLoadingMore(false);
+            }else {
+                activityMainBinding.setIsLoadingMore(true);
+            }
+        }
     }
 }
