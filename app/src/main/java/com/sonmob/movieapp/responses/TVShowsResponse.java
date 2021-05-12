@@ -16,7 +16,6 @@ public class TVShowsResponse {
     @SerializedName("tv_shows")
     private List<TVShow> tvShows;
 
-
     public int getPage() {
         return page;
     }

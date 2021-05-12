@@ -1,4 +1,4 @@
-package com.sonmob.movieapp.responsitories;
+package com.sonmob.movieapp.reponsitories;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.LiveData;
