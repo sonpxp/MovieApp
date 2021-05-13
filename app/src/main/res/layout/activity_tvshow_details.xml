@@ -9,6 +9,10 @@
             name="isLoading"
             type="Boolean" />
 
+        <variable
+            name="tvShowImageURL"
+            type="String" />
+
         <import type="android.view.View" />
     </data>
 
@@ -30,8 +34,8 @@
             android:id="@+id/viewFadingEdge"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_40sdp"
-            android:visibility="gone"
             android:background="@drawable/bg_fading_edge"
+            android:visibility="gone"
             app:layout_constraintBottom_toBottomOf="@+id/sliderViewPager" />
 
         <LinearLayout
@@ -42,7 +46,35 @@
             android:orientation="horizontal"
             android:padding="@dimen/_8sdp"
             android:visibility="gone"
-            app:layout_constraintBottom_toBottomOf="@+id/sliderViewPager"/>
+            app:layout_constraintBottom_toBottomOf="@+id/sliderViewPager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@id/imageTVShow" />
+
+        <ImageView
+            android:id="@+id/imageBack"
+            android:layout_width="@dimen/_25sdp"
+            android:layout_height="@dimen/_25sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:layout_marginTop="@dimen/_10sdp"
+            android:background="@drawable/bg_back_button"
+            android:padding="@dimen/_3sdp"
+            android:src="@drawable/ic_back"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:tint="@color/white" />
+
+        <com.makeramen.roundedimageview.RoundedImageView
+            android:id="@+id/imageTVShow"
+            android:layout_width="@dimen/_100sdp"
+            android:layout_height="@dimen/_150sdp"
+            android:layout_marginStart="@dimen/_10sdp"
+            android:imageURL="@{tvShowImageURL}"
+            android:scaleType="centerCrop"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="@+id/sliderViewPager"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/sliderViewPager"
+            app:riv_corner_radius="@dimen/_6sdp" />
 
 
         <ProgressBar
@@ -50,6 +82,7 @@
             android:layout_width="@dimen/_25sdp"
             android:layout_height="@dimen/_25sdp"
             android:visibility="@{isLoading ? View.VISIBLE : View.GONE, default = gone}"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />

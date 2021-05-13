@@ -31,6 +31,7 @@ public class TVShowDetailsActivity extends AppCompatActivity {
 
     private void doInitialization() {
         tvShowDetailsViewModel = new ViewModelProvider(this).get(TVShowDetailsViewModel.class);
+        tvshowDetailsBinding.imageBack.setOnClickListener(v -> onBackPressed());
         getTVShowDetails();
     }
 
@@ -43,6 +44,8 @@ public class TVShowDetailsActivity extends AppCompatActivity {
                 if (tvShowDetailsResponse.getTVShowDetails().getPictures() != null) {
                     loadImageSlider(tvShowDetailsResponse.getTVShowDetails().getPictures());
                 }
+                tvshowDetailsBinding.setTvShowImageURL(tvShowDetailsResponse.getTVShowDetails().getImagePath());
+                tvshowDetailsBinding.imageTVShow.setVisibility(View.VISIBLE);
             }
         });
     }
@@ -80,12 +83,12 @@ public class TVShowDetailsActivity extends AppCompatActivity {
 
     private void setCurrentSliderIndicator(int position) {
         int childCount = tvshowDetailsBinding.layoutSliderIndicators.getChildCount();
-        for (int i = 0; i < childCount; i++){
+        for (int i = 0; i < childCount; i++) {
             ImageView imageView = (ImageView) tvshowDetailsBinding.layoutSliderIndicators.getChildAt(i);
-            if (i == position){
+            if (i == position) {
                 imageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
                         R.drawable.bg_slider_indicator_active));
-            }else {
+            } else {
                 imageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
                         R.drawable.bg_slider_indicator_inactive));
             }
