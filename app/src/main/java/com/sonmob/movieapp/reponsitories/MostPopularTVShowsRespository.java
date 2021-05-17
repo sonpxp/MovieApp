@@ -22,22 +22,6 @@ public class MostPopularTVShowsRespository {
         apiService = ApiClient.getRetrofit().create(ApiService.class);
     }
 
-    /*public LiveData<TVShowsResponse> getMostPopularTVShows(int page) {
-        MutableLiveData<TVShowsResponse> liveData = new MutableLiveData<>();
-        apiService.getMostPopularTVShow(page).enqueue(new Callback<TVShowsResponse>() {
-            @Override
-            public void onResponse(@NonNull Call<TVShowsResponse> call, @NonNull Response<TVShowsResponse> response) {
-                liveData.setValue(response.body());
-            }
-
-            @Override
-            public void onFailure(@NonNull Call<TVShowsResponse> call, @NonNull Throwable t) {
-                liveData.setValue(null);
-            }
-        });
-        return liveData;
-    }*/
-
     public LiveData<TVShowsResponse> makeApiCall(int page) {
         liveData = new MutableLiveData<>();
         ApiService apiService = ApiClient.getRetrofit().create(ApiService.class);
