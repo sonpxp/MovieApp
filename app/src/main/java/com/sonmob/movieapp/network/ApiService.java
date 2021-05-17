@@ -11,10 +11,7 @@ import retrofit2.http.Query;
 public interface ApiService {
 
     @GET("most-popular")
-    Call<TVShowsResponse> getMostPopularTVShow(@Query("page") int page);
-
-   /* @GET("most-popular")
-    Observable<TVShowsResponse> getMostPopularTVShow(@Query("page") int page);*/
+    Observable<TVShowsResponse> getMostPopularTVShow(@Query("page") int page);
 
     @GET("show-details")
     Call<TVShowDetailsResponse> getTVShowDetails(@Query("q") String tvShowId);

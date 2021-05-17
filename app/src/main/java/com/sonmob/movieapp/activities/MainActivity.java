@@ -30,7 +30,6 @@ public class MainActivity extends AppCompatActivity implements TVShowsListener {
     private int currentPage = 1;
     private int totalAvailablePages = 1;
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,9 +46,9 @@ public class MainActivity extends AppCompatActivity implements TVShowsListener {
             @Override
             public void onScrolled(@NonNull @NotNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (!activityMainBinding.tvShowRecyclerView.canScrollVertically(1)){
-                    if (currentPage <= totalAvailablePages){
-                        currentPage +=1;
+                if (!activityMainBinding.tvShowRecyclerView.canScrollVertically(1)) {
+                    if (currentPage <= totalAvailablePages) {
+                        currentPage += 1;
                         getMostPopularTVShow();
                     }
                 }
@@ -73,21 +72,16 @@ public class MainActivity extends AppCompatActivity implements TVShowsListener {
                 }
             }
         });
+
     }
 
-    private void toggleLoading(){
-        if (currentPage == 1){
-            if (activityMainBinding.getIsLoading() != null && activityMainBinding.getIsLoading()){
-                activityMainBinding.setIsLoading(false);
-            }else {
-                activityMainBinding.setIsLoading(true);
-            }
-        }else {
-            if (activityMainBinding.getIsLoadingMore() != null && activityMainBinding.getIsLoadingMore()){
-                activityMainBinding.setIsLoadingMore(false);
-            }else {
-                activityMainBinding.setIsLoadingMore(true);
-            }
+    private void toggleLoading() {
+        if (currentPage == 1) {
+            activityMainBinding.setIsLoading(activityMainBinding.getIsLoading() == null ||
+                    !activityMainBinding.getIsLoading());
+        } else {
+            activityMainBinding.setIsLoadingMore(activityMainBinding.getIsLoadingMore() == null ||
+                    !activityMainBinding.getIsLoadingMore());
         }
     }
 
