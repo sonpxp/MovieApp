@@ -64,34 +64,44 @@
                 android:layout_height="wrap_content">
 
                 <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/sliderViewPager"
+                    android:id="@+id/pager_slider"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_160sdp"
                     android:visibility="gone"
                     app:layout_constraintTop_toTopOf="parent" />
 
                 <View
-                    android:id="@+id/viewFadingEdge"
+                    android:id="@+id/view_fadingEdge"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_40sdp"
                     android:background="@drawable/bg_fading_edge"
                     android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/sliderViewPager" />
+                    app:layout_constraintBottom_toBottomOf="@+id/pager_slider" />
 
                 <LinearLayout
-                    android:id="@+id/layoutSliderIndicators"
+                    android:id="@+id/linear_slider_indicators"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:orientation="horizontal"
                     android:padding="@dimen/_8sdp"
                     android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/sliderViewPager"
+                    app:layout_constraintBottom_toBottomOf="@+id/pager_slider"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/imageTVShow" />
+                    app:layout_constraintStart_toEndOf="@id/image_rounded_tvShow" />
 
-                <ImageView
-                    android:id="@+id/imageBack"
+                <me.relex.circleindicator.CircleIndicator3
+                    android:id="@+id/indicator_images"
+                    android:layout_width="wrap_content"
+                    android:layout_height="@dimen/_30sdp"
+                    app:ci_gravity="end"
+                    android:visibility="gone"
+                    app:layout_constraintBottom_toBottomOf="@+id/pager_slider"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toEndOf="@id/image_rounded_tvShow" />
+
+                <ImageButton
+                    android:id="@+id/image_back"
                     android:layout_width="@dimen/_25sdp"
                     android:layout_height="@dimen/_25sdp"
                     android:layout_marginStart="@dimen/_10sdp"
@@ -105,20 +115,20 @@
                     tools:ignore="ContentDescription" />
 
                 <com.makeramen.roundedimageview.RoundedImageView
-                    android:id="@+id/imageTVShow"
+                    android:id="@+id/image_rounded_tvShow"
                     android:layout_width="@dimen/_100sdp"
                     android:layout_height="@dimen/_150sdp"
                     android:layout_marginStart="@dimen/_10sdp"
                     android:imageURL="@{tvShowImageURL}"
                     android:scaleType="centerCrop"
                     android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/sliderViewPager"
+                    app:layout_constraintBottom_toBottomOf="@+id/pager_slider"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/sliderViewPager"
+                    app:layout_constraintTop_toBottomOf="@+id/pager_slider"
                     app:riv_corner_radius="@dimen/_6sdp" />
 
                 <TextView
-                    android:id="@+id/textName"
+                    android:id="@+id/text_name"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_8sdp"
@@ -129,11 +139,11 @@
                     android:textSize="@dimen/_14ssp"
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/imageTVShow"
-                    app:layout_constraintTop_toBottomOf="@id/sliderViewPager" />
+                    app:layout_constraintStart_toEndOf="@id/image_rounded_tvShow"
+                    app:layout_constraintTop_toBottomOf="@id/pager_slider" />
 
                 <TextView
-                    android:id="@+id/textNetworkCountry"
+                    android:id="@+id/text_network_country"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_8sdp"
@@ -143,12 +153,12 @@
                     android:textColor="@color/yellow"
                     android:textSize="@dimen/_12ssp"
                     android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="@+id/textName"
-                    app:layout_constraintStart_toStartOf="@id/textName"
-                    app:layout_constraintTop_toBottomOf="@id/textName" />
+                    app:layout_constraintEnd_toEndOf="@+id/text_name"
+                    app:layout_constraintStart_toStartOf="@id/text_name"
+                    app:layout_constraintTop_toBottomOf="@id/text_name" />
 
                 <TextView
-                    android:id="@+id/textStatus"
+                    android:id="@+id/text_status"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_8sdp"
@@ -158,12 +168,12 @@
                     android:textColor="@color/yellow"
                     android:textSize="@dimen/_12ssp"
                     android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="@+id/textName"
-                    app:layout_constraintStart_toStartOf="@id/textName"
-                    app:layout_constraintTop_toBottomOf="@id/textNetworkCountry" />
+                    app:layout_constraintEnd_toEndOf="@+id/text_name"
+                    app:layout_constraintStart_toStartOf="@id/text_name"
+                    app:layout_constraintTop_toBottomOf="@id/text_network_country" />
 
                 <TextView
-                    android:id="@+id/textStarted"
+                    android:id="@+id/text_started"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_8sdp"
@@ -173,12 +183,12 @@
                     android:textColor="@color/yellow"
                     android:textSize="@dimen/_12ssp"
                     android:visibility="gone"
-                    app:layout_constraintEnd_toEndOf="@+id/textName"
-                    app:layout_constraintStart_toStartOf="@id/textName"
-                    app:layout_constraintTop_toBottomOf="@id/textStatus" />
+                    app:layout_constraintEnd_toEndOf="@+id/text_name"
+                    app:layout_constraintStart_toStartOf="@id/text_name"
+                    app:layout_constraintTop_toBottomOf="@id/text_status" />
 
                 <TextView
-                    android:id="@+id/textDescription"
+                    android:id="@+id/text_description"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_8sdp"
@@ -190,31 +200,31 @@
                     android:textColor="@color/white"
                     android:textSize="@dimen/_11ssp"
                     android:visibility="gone"
-                    app:layout_constraintTop_toBottomOf="@id/imageTVShow" />
+                    app:layout_constraintTop_toBottomOf="@id/image_rounded_tvShow" />
 
                 <TextView
-                    android:id="@+id/textReadMore"
+                    android:id="@+id/text_readMore"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/read_more"
                     android:textColor="@color/teal_700"
                     android:textSize="@dimen/_12ssp"
                     android:visibility="gone"
-                    app:layout_constraintStart_toStartOf="@id/textDescription"
-                    app:layout_constraintTop_toBottomOf="@id/textDescription" />
+                    app:layout_constraintStart_toStartOf="@id/text_description"
+                    app:layout_constraintTop_toBottomOf="@id/text_description" />
 
                 <View
-                    android:id="@+id/viewDivider1"
+                    android:id="@+id/view_divider_1"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginHorizontal="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:background="@color/blue"
                     android:visibility="gone"
-                    app:layout_constraintTop_toBottomOf="@+id/textReadMore" />
+                    app:layout_constraintTop_toBottomOf="@+id/text_readMore" />
 
                 <LinearLayout
-                    android:id="@+id/layoutMisc"
+                    android:id="@+id/linear_misc"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginHorizontal="@dimen/_8sdp"
@@ -222,7 +232,7 @@
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:visibility="gone"
-                    app:layout_constraintTop_toBottomOf="@+id/viewDivider1">
+                    app:layout_constraintTop_toBottomOf="@+id/view_divider_1">
 
                     <ImageView
                         android:layout_width="@dimen/_20sdp"
@@ -232,7 +242,7 @@
                         app:tint="@color/yellow" />
 
                     <TextView
-                        android:id="@+id/textRating"
+                        android:id="@+id/text_rating"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
@@ -249,7 +259,7 @@
                         android:textSize="@dimen/_13ssp" />
 
                     <TextView
-                        android:id="@+id/textGenre"
+                        android:id="@+id/text_genre"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
@@ -266,7 +276,7 @@
                         android:textSize="@dimen/_13ssp" />
 
                     <TextView
-                        android:id="@+id/textRuntime"
+                        android:id="@+id/text_runtime"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="@dimen/_5sdp"
@@ -277,17 +287,17 @@
                 </LinearLayout>
 
                 <View
-                    android:id="@+id/viewDivider2"
+                    android:id="@+id/view_divider_2"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_1sdp"
                     android:layout_marginHorizontal="@dimen/_8sdp"
                     android:layout_marginTop="@dimen/_8sdp"
                     android:background="@color/blue"
                     android:visibility="gone"
-                    app:layout_constraintTop_toBottomOf="@+id/layoutMisc" />
+                    app:layout_constraintTop_toBottomOf="@+id/linear_misc" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonWeb"
+                    android:id="@+id/button_web"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_8sdp"
@@ -297,25 +307,25 @@
                     app:backgroundTint="@color/teal_700"
                     app:cornerRadius="@dimen/_6sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toStartOf="@+id/button_episodes"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintEnd_toStartOf="@+id/buttonEpisodes"
-                    app:layout_constraintTop_toBottomOf="@+id/viewDivider2" />
+                    app:layout_constraintTop_toBottomOf="@+id/view_divider_2" />
 
                 <com.google.android.material.button.MaterialButton
-                    android:id="@+id/buttonEpisodes"
+                    android:id="@+id/button_episodes"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_margin="@dimen/_8sdp"
                     android:text="@string/episodes"
+                    android:textColor="@color/black"
                     android:textSize="@dimen/_12ssp"
                     android:visibility="gone"
-                    android:textColor="@color/black"
                     app:backgroundTint="@color/yellow"
                     app:cornerRadius="@dimen/_6sdp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@+id/buttonWeb"
-                    app:layout_constraintTop_toBottomOf="@+id/viewDivider2" />
+                    app:layout_constraintStart_toEndOf="@+id/button_web"
+                    app:layout_constraintTop_toBottomOf="@+id/view_divider_2" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
         </ScrollView>

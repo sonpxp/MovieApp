@@ -10,13 +10,15 @@ import com.sonmob.movieapp.responses.TVShowsResponse;
 import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
 import io.reactivex.rxjava3.annotations.NonNull;
 import io.reactivex.rxjava3.core.Observer;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
 import io.reactivex.rxjava3.disposables.Disposable;
 import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class MostPopularTVShowsRespository {
 
+    private MutableLiveData<TVShowsResponse> liveData;
     private ApiService apiService;
-    MutableLiveData<TVShowsResponse> liveData;
+    private final CompositeDisposable disposables = new CompositeDisposable();
 
     public MostPopularTVShowsRespository() {
         apiService = ApiClient.getRetrofit().create(ApiService.class);
@@ -24,7 +26,6 @@ public class MostPopularTVShowsRespository {
 
     public LiveData<TVShowsResponse> makeApiCall(int page) {
         liveData = new MutableLiveData<>();
-        ApiService apiService = ApiClient.getRetrofit().create(ApiService.class);
         apiService.getMostPopularTVShow(page)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -34,8 +35,9 @@ public class MostPopularTVShowsRespository {
 
     private Observer<TVShowsResponse> getMostPopularTVShowRx() {
         return new Observer<TVShowsResponse>() {
+
             @Override
-            public void onSubscribe(@io.reactivex.rxjava3.annotations.NonNull Disposable d) {
+            public void onSubscribe(@NonNull Disposable d) {
 
             }
 
@@ -55,4 +57,6 @@ public class MostPopularTVShowsRespository {
             }
         };
     }
+
+
 }

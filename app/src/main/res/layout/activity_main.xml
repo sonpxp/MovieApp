@@ -4,15 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
         <variable
             name="isLoading"
             type="Boolean" />
-        
+
         <variable
             name="isLoadingMore"
             type="Boolean" />
 
-        <import type="android.view.View"/>
+        <import type="android.view.View" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -23,7 +24,7 @@
         tools:context=".activities.MainActivity">
 
         <LinearLayout
-            android:id="@+id/layoutHeader"
+            android:id="@+id/linear_header"
             android:layout_width="match_parent"
             android:layout_height="?actionBarSize"
             android:gravity="center_vertical"
@@ -39,24 +40,26 @@
                 android:layout_weight="1"
                 android:ellipsize="end"
                 android:maxLines="1"
-                android:text="TV SHOW"
+                android:text="@string/title_app_name"
                 android:textColor="@color/white"
                 android:textSize="@dimen/_14ssp" />
 
-            <ImageView
-                android:id="@+id/imageWatchlist"
+            <ImageButton
+                android:id="@+id/image_watch_list"
                 android:layout_width="@dimen/_24sdp"
                 android:layout_height="@dimen/_24sdp"
                 android:layout_marginEnd="@dimen/_8sdp"
+                android:background="?android:selectableItemBackground"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/ic_watchlist"
                 app:tint="@color/white" />
 
-            <ImageView
-                android:id="@+id/imageSearch"
+            <ImageButton
+                android:id="@+id/image_search"
                 android:layout_width="@dimen/_24sdp"
                 android:layout_height="@dimen/_24sdp"
                 android:layout_marginEnd="@dimen/_8sdp"
+                android:background="?android:selectableItemBackground"
                 android:contentDescription="@string/app_name"
                 android:src="@drawable/ic_search"
                 app:tint="@color/white" />
@@ -73,7 +76,7 @@
             android:paddingBottom="@dimen/_45sdp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutHeader" />
+            app:layout_constraintTop_toBottomOf="@+id/linear_header" />
 
         <ProgressBar
             android:id="@+id/progressBar"
@@ -83,7 +86,7 @@
             android:visibility="@{isLoading ? View.VISIBLE : View.GONE, default = gone}"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/layoutHeader" />
+            app:layout_constraintTop_toBottomOf="@+id/linear_header" />
 
         <ProgressBar
             android:layout_width="@dimen/_25sdp"

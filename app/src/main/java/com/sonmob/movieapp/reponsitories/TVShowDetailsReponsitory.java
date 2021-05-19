@@ -14,7 +14,7 @@ import retrofit2.Response;
 
 public class TVShowDetailsReponsitory {
 
-    private ApiService apiService;
+    private final ApiService apiService;
 
     public TVShowDetailsReponsitory() {
         apiService = ApiClient.getRetrofit().create(ApiService.class);

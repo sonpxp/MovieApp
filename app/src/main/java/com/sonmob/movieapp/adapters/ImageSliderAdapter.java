@@ -1,6 +1,5 @@
 package com.sonmob.movieapp.adapters;
 
-import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
@@ -15,7 +14,7 @@ import org.jetbrains.annotations.NotNull;
 
 public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.ImageSliderViewHolder> {
 
-    private String[] sliderImages;
+    private final String[] sliderImages;
     private LayoutInflater layoutInflater;
 
     public ImageSliderAdapter(String[] sliderImages) {
@@ -45,9 +44,8 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
         return sliderImages.length;
     }
 
-    public class ImageSliderViewHolder extends RecyclerView.ViewHolder {
-
-        private ItemContainerSliderImageBinding itemContainerSliderImageBinding;
+    public static class ImageSliderViewHolder extends RecyclerView.ViewHolder {
+        private final ItemContainerSliderImageBinding itemContainerSliderImageBinding;
 
         public ImageSliderViewHolder(ItemContainerSliderImageBinding itemContainerSliderImageBinding) {
             super(itemContainerSliderImageBinding.getRoot());

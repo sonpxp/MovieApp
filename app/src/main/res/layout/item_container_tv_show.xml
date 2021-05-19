@@ -14,22 +14,22 @@
         android:padding="@dimen/_4sdp">
 
         <View
-            android:id="@+id/viewSupporter"
+            android:id="@+id/view_supporter"
             android:layout_width="match_parent"
             android:layout_height="@dimen/_10sdp"
-            app:layout_constraintTop_toTopOf="@+id/imageTVShow" />
+            app:layout_constraintTop_toTopOf="@+id/image_tvShow" />
 
         <View
-            android:id="@+id/viewBackground"
+            android:id="@+id/view_background"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:background="@drawable/bg_tv_show"
             android:paddingBottom="@dimen/_10sdp"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintTop_toTopOf="@+id/textName" />
+            app:layout_constraintTop_toTopOf="@+id/text_name" />
 
         <com.makeramen.roundedimageview.RoundedImageView
-            android:id="@+id/imageTVShow"
+            android:id="@+id/image_tvShow"
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_100sdp"
             android:scaleType="centerCrop"
@@ -39,7 +39,7 @@
             app:riv_corner_radius="@dimen/_4sdp" />
 
         <TextView
-            android:id="@+id/textName"
+            android:id="@+id/text_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text="@{tvShow.name}"
@@ -51,41 +51,41 @@
             android:textColor="@color/white"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/imageTVShow"
-            app:layout_constraintTop_toTopOf="@+id/imageTVShow" />
+            app:layout_constraintStart_toEndOf="@+id/image_tvShow"
+            app:layout_constraintTop_toTopOf="@+id/image_tvShow" />
 
         <TextView
-            android:id="@+id/textNetwork"
+            android:id="@+id/text_network"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:text='@{tvShow.network + "(" +tvShow.country + ")"}'
             android:textColor="@color/yellow"
             android:textSize="@dimen/_12ssp"
-            app:layout_constraintEnd_toEndOf="@+id/textName"
-            app:layout_constraintStart_toStartOf="@+id/textName"
-            app:layout_constraintTop_toBottomOf="@+id/textName" />
+            app:layout_constraintEnd_toEndOf="@+id/text_name"
+            app:layout_constraintStart_toStartOf="@+id/text_name"
+            app:layout_constraintTop_toBottomOf="@+id/text_name" />
 
         <TextView
-            android:id="@+id/textStarted"
+            android:id="@+id/text_started"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/xam"
             android:text='@{"Stared on: " + tvShow.startDate}'
             android:textSize="@dimen/_12ssp"
-            app:layout_constraintEnd_toEndOf="@+id/textName"
-            app:layout_constraintStart_toStartOf="@+id/textName"
-            app:layout_constraintTop_toBottomOf="@+id/textNetwork" />
+            app:layout_constraintEnd_toEndOf="@+id/text_name"
+            app:layout_constraintStart_toStartOf="@+id/text_name"
+            app:layout_constraintTop_toBottomOf="@+id/text_network" />
 
         <TextView
-            android:id="@+id/textStatus"
+            android:id="@+id/text_status"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:textColor="@color/yellow"
             android:textSize="@dimen/_12ssp"
             android:text='@{tvShow.status}'
-            app:layout_constraintEnd_toEndOf="@+id/textName"
-            app:layout_constraintStart_toStartOf="@+id/textName"
-            app:layout_constraintTop_toBottomOf="@+id/textStarted" />
+            app:layout_constraintEnd_toEndOf="@+id/text_name"
+            app:layout_constraintStart_toStartOf="@+id/text_name"
+            app:layout_constraintTop_toBottomOf="@+id/text_started" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

@@ -7,7 +7,7 @@ import com.sonmob.movieapp.reponsitories.TVShowDetailsReponsitory;
 import com.sonmob.movieapp.responses.TVShowDetailsResponse;
 
 public class TVShowDetailsViewModel extends ViewModel {
-    private TVShowDetailsReponsitory tvShowDetailsReponsitory;
+    private final TVShowDetailsReponsitory tvShowDetailsReponsitory;
 
     public TVShowDetailsViewModel() {
         tvShowDetailsReponsitory = new TVShowDetailsReponsitory();

@@ -23,7 +23,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements TVShowsListener {
 
-    private ActivityMainBinding activityMainBinding;
+    private ActivityMainBinding mainBinding;
     private MostPopularTVShowsViewModel viewModel;
     private final List<TVShow> tvShows = new ArrayList<>();
     private TVShowsAdapter tvShowsAdapter;
@@ -33,20 +33,20 @@ public class MainActivity extends AppCompatActivity implements TVShowsListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        activityMainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         doInitialization();
     }
 
     private void doInitialization() {
-        activityMainBinding.tvShowRecyclerView.setHasFixedSize(true);
+        mainBinding.tvShowRecyclerView.setHasFixedSize(true);
         viewModel = new ViewModelProvider(this).get(MostPopularTVShowsViewModel.class);
         tvShowsAdapter = new TVShowsAdapter(tvShows, this);
-        activityMainBinding.tvShowRecyclerView.setAdapter(tvShowsAdapter);
-        activityMainBinding.tvShowRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        mainBinding.tvShowRecyclerView.setAdapter(tvShowsAdapter);
+        mainBinding.tvShowRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrolled(@NonNull @NotNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (!activityMainBinding.tvShowRecyclerView.canScrollVertically(1)) {
+                if (!mainBinding.tvShowRecyclerView.canScrollVertically(1)) {
                     if (currentPage <= totalAvailablePages) {
                         currentPage += 1;
                         getMostPopularTVShow();
@@ -77,11 +77,11 @@ public class MainActivity extends AppCompatActivity implements TVShowsListener {
 
     private void toggleLoading() {
         if (currentPage == 1) {
-            activityMainBinding.setIsLoading(activityMainBinding.getIsLoading() == null ||
-                    !activityMainBinding.getIsLoading());
+            mainBinding.setIsLoading(mainBinding.getIsLoading() == null ||
+                    !mainBinding.getIsLoading());
         } else {
-            activityMainBinding.setIsLoadingMore(activityMainBinding.getIsLoadingMore() == null ||
-                    !activityMainBinding.getIsLoadingMore());
+            mainBinding.setIsLoadingMore(mainBinding.getIsLoadingMore() == null ||
+                    !mainBinding.getIsLoadingMore());
         }
     }
 

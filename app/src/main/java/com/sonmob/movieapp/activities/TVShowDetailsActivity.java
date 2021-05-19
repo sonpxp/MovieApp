@@ -49,9 +49,10 @@ public class TVShowDetailsActivity extends AppCompatActivity {
             if (tvShowDetailsResponse.getTVShowDetails() != null) {
                 if (tvShowDetailsResponse.getTVShowDetails().getPictures() != null) {
                     loadImageSlider(tvShowDetailsResponse.getTVShowDetails().getPictures());
+
                 }
                 binding.setTvShowImageURL(tvShowDetailsResponse.getTVShowDetails().getImagePath());
-                binding.imageTVShow.setVisibility(View.VISIBLE);
+                binding.imageRoundedTvShow.setVisibility(View.VISIBLE);
                 binding.setDescription(String.valueOf(HtmlCompat.fromHtml(
                         tvShowDetailsResponse.getTVShowDetails().getDescription(),
                         HtmlCompat.FROM_HTML_MODE_LEGACY
@@ -82,7 +83,7 @@ public class TVShowDetailsActivity extends AppCompatActivity {
                 }
                 binding.setRuntime(tvShowDetailsResponse.getTVShowDetails().getRuntime() + " Min");
                 binding.viewDivider1.setVisibility(View.VISIBLE);
-                binding.layoutMisc.setVisibility(View.VISIBLE);
+                binding.linearMisc.setVisibility(View.VISIBLE);
                 binding.viewDivider2.setVisibility(View.VISIBLE);
 
                 binding.buttonWeb.setOnClickListener(v -> {
@@ -98,12 +99,12 @@ public class TVShowDetailsActivity extends AppCompatActivity {
     }
 
     private void loadImageSlider(String[] sliderImages) {
-        binding.sliderViewPager.setOffscreenPageLimit(1);
-        binding.sliderViewPager.setAdapter(new ImageSliderAdapter(sliderImages));
-        binding.sliderViewPager.setVisibility(View.VISIBLE);
+        binding.pagerSlider.setOffscreenPageLimit(1);
+        binding.pagerSlider.setAdapter(new ImageSliderAdapter(sliderImages));
+        binding.pagerSlider.setVisibility(View.VISIBLE);
         binding.viewFadingEdge.setVisibility(View.VISIBLE);
         setUpSliderIndicators(sliderImages.length);
-        binding.sliderViewPager.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
+        binding.pagerSlider.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
             @Override
             public void onPageSelected(int position) {
                 super.onPageSelected(position);
@@ -122,16 +123,16 @@ public class TVShowDetailsActivity extends AppCompatActivity {
             indicators[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
                     R.drawable.bg_slider_indicator_inactive));
             indicators[i].setLayoutParams(layoutParams);
-            binding.layoutSliderIndicators.addView(indicators[i]);
+            binding.linearSliderIndicators.addView(indicators[i]);
         }
-        binding.layoutSliderIndicators.setVisibility(View.VISIBLE);
+        binding.linearSliderIndicators.setVisibility(View.VISIBLE);
         setCurrentSliderIndicator(0);
     }
 
     private void setCurrentSliderIndicator(int position) {
-        int childCount = binding.layoutSliderIndicators.getChildCount();
+        int childCount = binding.linearSliderIndicators.getChildCount();
         for (int i = 0; i < childCount; i++) {
-            ImageView imageView = (ImageView) binding.layoutSliderIndicators.getChildAt(i);
+            ImageView imageView = (ImageView) binding.linearSliderIndicators.getChildAt(i);
             if (i == position) {
                 imageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
                         R.drawable.bg_slider_indicator_active));
