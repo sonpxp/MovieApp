@@ -9,7 +9,7 @@ import com.sonmob.movieapp.responses.TVShowsResponse;
 import io.reactivex.rxjava3.disposables.CompositeDisposable;
 
 public class MostPopularTVShowsViewModel extends ViewModel {
-    private final MostPopularTVShowsRespository mostPopularTVShowsRespository;
+    private MostPopularTVShowsRespository mostPopularTVShowsRespository;
 
     public MostPopularTVShowsViewModel() {
         mostPopularTVShowsRespository = new MostPopularTVShowsRespository();
@@ -19,4 +19,8 @@ public class MostPopularTVShowsViewModel extends ViewModel {
         return mostPopularTVShowsRespository.makeApiCall(page);
     }
 
+    @Override
+    protected void onCleared() {
+        super.onCleared();
+    }
 }

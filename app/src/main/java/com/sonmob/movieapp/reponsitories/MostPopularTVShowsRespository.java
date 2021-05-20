@@ -17,7 +17,7 @@ import io.reactivex.rxjava3.schedulers.Schedulers;
 public class MostPopularTVShowsRespository {
 
     private MutableLiveData<TVShowsResponse> liveData;
-    private ApiService apiService;
+    private final ApiService apiService;
     private final CompositeDisposable disposables = new CompositeDisposable();
 
     public MostPopularTVShowsRespository() {
@@ -28,6 +28,7 @@ public class MostPopularTVShowsRespository {
         liveData = new MutableLiveData<>();
         apiService.getMostPopularTVShow(page)
                 .subscribeOn(Schedulers.io())
+                // .filter(tvShowsResponse -> page < 2) // loc theo dieu kien
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(getMostPopularTVShowRx());
         return liveData;
@@ -38,7 +39,7 @@ public class MostPopularTVShowsRespository {
 
             @Override
             public void onSubscribe(@NonNull Disposable d) {
-
+                disposables.add(d);
             }
 
             @Override
@@ -57,6 +58,5 @@ public class MostPopularTVShowsRespository {
             }
         };
     }
-
 
 }
