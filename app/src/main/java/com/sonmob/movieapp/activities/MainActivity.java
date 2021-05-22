@@ -2,6 +2,7 @@ package com.sonmob.movieapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -54,6 +55,8 @@ public class MainActivity extends AppCompatActivity implements TVShowsListener {
                 }
             }
         });
+        mainBinding.imageWatchList.setOnClickListener(v ->
+                startActivity(new Intent(getApplicationContext(), WatchlistActivity.class)));
         getMostPopularTVShow();
 
     }
@@ -88,12 +91,7 @@ public class MainActivity extends AppCompatActivity implements TVShowsListener {
     @Override
     public void onTVShowClicked(TVShow tvShow) {
         Intent intent = new Intent(getApplicationContext(), TVShowDetailsActivity.class);
-        intent.putExtra("id", tvShow.getId());
-        intent.putExtra("name", tvShow.getName());
-        intent.putExtra("startDate", tvShow.getStartDate());
-        intent.putExtra("country", tvShow.getCountry());
-        intent.putExtra("network", tvShow.getNetwork());
-        intent.putExtra("status", tvShow.getStatus());
+        intent.putExtra("tvShow", tvShow);
         startActivity(intent);
     }
 }

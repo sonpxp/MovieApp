@@ -8,6 +8,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.content.ContextCompat;
@@ -19,14 +20,21 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.sonmob.movieapp.R;
 import com.sonmob.movieapp.adapters.ImageSliderAdapter;
 import com.sonmob.movieapp.databinding.ActivityTvshowDetailsBinding;
+import com.sonmob.movieapp.models.TVShow;
 import com.sonmob.movieapp.viewmodels.TVShowDetailsViewModel;
 
 import java.util.Locale;
+
+import io.reactivex.rxjava3.android.schedulers.AndroidSchedulers;
+import io.reactivex.rxjava3.disposables.CompositeDisposable;
+import io.reactivex.rxjava3.schedulers.Schedulers;
 
 public class TVShowDetailsActivity extends AppCompatActivity {
 
     private ActivityTvshowDetailsBinding binding;
     private TVShowDetailsViewModel tvShowDetailsViewModel;
+    private TVShow tvShow;
+    private Boolean isWatchlistAvailable = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,14 +44,29 @@ public class TVShowDetailsActivity extends AppCompatActivity {
     }
 
     private void doInitialization() {
-        tvShowDetailsViewModel = new ViewModelProvider(this).get(TVShowDetailsViewModel.class);
+        tvShowDetailsViewModel = new ViewModelProvider(this,
+                new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(TVShowDetailsViewModel.class);
         binding.imageBack.setOnClickListener(v -> onBackPressed());
+        tvShow = (TVShow) getIntent().getSerializableExtra("tvShow");
+        checkTVShowInWatchlist();
         getTVShowDetails();
+    }
+
+    private void checkTVShowInWatchlist() {
+        CompositeDisposable disposable = new CompositeDisposable();
+        disposable.add(tvShowDetailsViewModel.getTVShowFromWatchlist(String.valueOf(tvShow.getId()))
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(tvShow -> {
+                    isWatchlistAvailable = true;
+                    binding.imageWatchlist.setImageResource(R.drawable.ic_added);
+                    disposable.dispose();
+                }));
     }
 
     private void getTVShowDetails() {
         binding.setIsLoading(true);
-        String tvShowId = String.valueOf(getIntent().getIntExtra("id", -1));
+        String tvShowId = String.valueOf(tvShow.getId());
         tvShowDetailsViewModel.getTVShowDetails(tvShowId).observe(this, tvShowDetailsResponse -> {
             binding.setIsLoading(false);
             if (tvShowDetailsResponse.getTVShowDetails() != null) {
@@ -76,9 +99,9 @@ public class TVShowDetailsActivity extends AppCompatActivity {
                         Double.parseDouble(tvShowDetailsResponse.getTVShowDetails().getRating())
                         )
                 );
-                if (tvShowDetailsResponse.getTVShowDetails().getGenres() != null){
+                if (tvShowDetailsResponse.getTVShowDetails().getGenres() != null) {
                     binding.setGenre(tvShowDetailsResponse.getTVShowDetails().getGenres()[0]);
-                }else {
+                } else {
                     binding.setGenre("N/A");
                 }
                 binding.setRuntime(tvShowDetailsResponse.getTVShowDetails().getRuntime() + " Min");
@@ -93,6 +116,33 @@ public class TVShowDetailsActivity extends AppCompatActivity {
                 });
                 binding.buttonWeb.setVisibility(View.VISIBLE);
                 binding.buttonEpisodes.setVisibility(View.VISIBLE);
+
+                binding.imageWatchlist.setOnClickListener(v -> {
+                    CompositeDisposable disposable = new CompositeDisposable();
+                    if (isWatchlistAvailable) {
+                        disposable.add(tvShowDetailsViewModel.removeTVShowFromWatchlist(tvShow)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(() -> {
+                                    isWatchlistAvailable = false;
+                                    binding.imageWatchlist.setImageResource(R.drawable.ic_watchlist);
+                                    Toast.makeText(TVShowDetailsActivity.this, "Remove from watchlist", Toast.LENGTH_SHORT).show();
+                                    disposable.dispose();
+                                })
+                        );
+                    } else {
+                        disposable.add(tvShowDetailsViewModel.addToWatchlist(tvShow)
+                                .subscribeOn(Schedulers.io())
+                                .observeOn(AndroidSchedulers.mainThread())
+                                .subscribe(() -> {
+                                    binding.imageWatchlist.setImageResource(R.drawable.ic_added);
+                                    Toast.makeText(TVShowDetailsActivity.this, "Added to watchlist", Toast.LENGTH_SHORT).show();
+                                    disposable.dispose();
+                                })
+                        );
+                    }
+                });
+                binding.imageWatchlist.setVisibility(View.VISIBLE);
                 loadBaseTVShowDetails();
             }
         });
@@ -144,11 +194,11 @@ public class TVShowDetailsActivity extends AppCompatActivity {
     }
 
     private void loadBaseTVShowDetails() {
-        binding.setTvShowName(getIntent().getStringExtra("name"));
-        binding.setNetworkCountry(getIntent().getStringExtra("network") + "(" +
-                getIntent().getStringExtra("country") + ")");
-        binding.setStatus(getIntent().getStringExtra("status"));
-        binding.setStartedDate(getIntent().getStringExtra("startDate"));
+        binding.setTvShowName(tvShow.getName());
+        binding.setNetworkCountry(tvShow.getNetwork() + "(" +
+                tvShow.getCountry() + ")");
+        binding.setStatus(tvShow.getStatus());
+        binding.setStartedDate(tvShow.getStartDate());
 
         binding.textName.setVisibility(View.VISIBLE);
         binding.textNetworkCountry.setVisibility(View.VISIBLE);

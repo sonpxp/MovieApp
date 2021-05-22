@@ -56,6 +56,7 @@
         tools:context=".activities.TVShowDetailsActivity">
 
         <ScrollView
+            android:id="@+id/scrollView2"
             android:layout_width="match_parent"
             android:layout_height="match_parent">
 
@@ -94,8 +95,8 @@
                     android:id="@+id/indicator_images"
                     android:layout_width="wrap_content"
                     android:layout_height="@dimen/_30sdp"
-                    app:ci_gravity="end"
                     android:visibility="gone"
+                    app:ci_gravity="end"
                     app:layout_constraintBottom_toBottomOf="@+id/pager_slider"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/image_rounded_tvShow" />
@@ -339,6 +340,21 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageButton
+            android:id="@+id/image_watchlist"
+            android:layout_width="@dimen/_35sdp"
+            android:layout_height="@dimen/_35sdp"
+            android:layout_marginEnd="@dimen/_20sdp"
+            android:layout_marginBottom="@dimen/_20sdp"
+            android:background="@drawable/bg_fab"
+            android:padding="@dimen/_8sdp"
+            android:visibility="gone"
+            android:src="@drawable/ic_watchlist"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/white" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

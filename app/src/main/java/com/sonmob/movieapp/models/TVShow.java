@@ -1,8 +1,15 @@
 package com.sonmob.movieapp.models;
 
-import com.google.gson.annotations.SerializedName;
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
 
-public class TVShow {
+import com.google.gson.annotations.SerializedName;
+import java.io.Serializable;
+
+@Entity(tableName = "tvshows")
+public class TVShow implements Serializable {
+
+    @PrimaryKey
     @SerializedName("id")
     private int id;
 

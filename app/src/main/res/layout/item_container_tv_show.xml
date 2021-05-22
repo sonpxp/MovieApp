@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <data>
+
         <variable
             name="tvShow"
             type="com.sonmob.movieapp.models.TVShow" />
@@ -32,8 +33,8 @@
             android:id="@+id/image_tvShow"
             android:layout_width="@dimen/_70sdp"
             android:layout_height="@dimen/_100sdp"
-            android:scaleType="centerCrop"
             android:imageURL="@{tvShow.thumbnail}"
+            android:scaleType="centerCrop"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:riv_corner_radius="@dimen/_4sdp" />
@@ -42,13 +43,13 @@
             android:id="@+id/text_name"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:text="@{tvShow.name}"
             android:layout_marginStart="@dimen/_8sdp"
             android:layout_marginTop="@dimen/_20sdp"
             android:layout_marginEnd="@dimen/_8sdp"
             android:paddingTop="@dimen/_8sdp"
-            android:textSize="@dimen/_13ssp"
+            android:text="@{tvShow.name}"
             android:textColor="@color/white"
+            android:textSize="@dimen/_13ssp"
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toEndOf="@+id/image_tvShow"
@@ -69,8 +70,8 @@
             android:id="@+id/text_started"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:textColor="@color/xam"
             android:text='@{"Stared on: " + tvShow.startDate}'
+            android:textColor="@color/xam"
             android:textSize="@dimen/_12ssp"
             app:layout_constraintEnd_toEndOf="@+id/text_name"
             app:layout_constraintStart_toStartOf="@+id/text_name"
@@ -80,12 +81,25 @@
             android:id="@+id/text_status"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:text='@{tvShow.status}'
             android:textColor="@color/yellow"
             android:textSize="@dimen/_12ssp"
-            android:text='@{tvShow.status}'
             app:layout_constraintEnd_toEndOf="@+id/text_name"
             app:layout_constraintStart_toStartOf="@+id/text_name"
             app:layout_constraintTop_toBottomOf="@+id/text_started" />
+
+        <ImageView
+            android:id="@+id/image_delete"
+            android:layout_width="@dimen/_22sdp"
+            android:layout_height="@dimen/_22sdp"
+            android:layout_marginEnd="@dimen/_4sdp"
+            android:layout_marginBottom="@dimen/_4sdp"
+            android:contentDescription="@string/app_name"
+            android:src="@drawable/ic_delete"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:tint="@color/red" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

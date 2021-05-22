@@ -29,6 +29,7 @@
             android:layout_height="?actionBarSize"
             android:gravity="center_vertical"
             android:orientation="horizontal"
+            android:background="@color/toolbar"
             android:padding="@dimen/_8sdp"
             app:layout_constraintTop_toTopOf="parent">
 

@@ -10,7 +10,9 @@
 
 
     <color name="tim">#111942</color>
+    <color name="toolbar">#F8101639</color>
     <color name="yellow">#FFEB3B</color>
     <color name="blue">#2196F3</color>
     <color name="xam">#919295</color>
+    <color name="red">#F44336</color>
 </resources>
