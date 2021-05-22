@@ -21,6 +21,7 @@ import com.sonmob.movieapp.R;
 import com.sonmob.movieapp.adapters.ImageSliderAdapter;
 import com.sonmob.movieapp.databinding.ActivityTvshowDetailsBinding;
 import com.sonmob.movieapp.models.TVShow;
+import com.sonmob.movieapp.utilities.TempDataHolder;
 import com.sonmob.movieapp.viewmodels.TVShowDetailsViewModel;
 
 import java.util.Locale;
@@ -125,6 +126,7 @@ public class TVShowDetailsActivity extends AppCompatActivity {
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe(() -> {
                                     isWatchlistAvailable = false;
+                                    TempDataHolder.IS_WATCHLIST_UPDATE = true;
                                     binding.imageWatchlist.setImageResource(R.drawable.ic_watchlist);
                                     Toast.makeText(TVShowDetailsActivity.this, "Remove from watchlist", Toast.LENGTH_SHORT).show();
                                     disposable.dispose();
@@ -135,6 +137,7 @@ public class TVShowDetailsActivity extends AppCompatActivity {
                                 .subscribeOn(Schedulers.io())
                                 .observeOn(AndroidSchedulers.mainThread())
                                 .subscribe(() -> {
+                                    TempDataHolder.IS_WATCHLIST_UPDATE = true;
                                     binding.imageWatchlist.setImageResource(R.drawable.ic_added);
                                     Toast.makeText(TVShowDetailsActivity.this, "Added to watchlist", Toast.LENGTH_SHORT).show();
                                     disposable.dispose();

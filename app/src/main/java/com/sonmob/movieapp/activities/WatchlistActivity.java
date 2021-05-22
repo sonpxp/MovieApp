@@ -13,6 +13,7 @@ import com.sonmob.movieapp.adapters.WatchlistAdapter;
 import com.sonmob.movieapp.databinding.ActivityWatchlistBinding;
 import com.sonmob.movieapp.listeners.WatchlistListener;
 import com.sonmob.movieapp.models.TVShow;
+import com.sonmob.movieapp.utilities.TempDataHolder;
 import com.sonmob.movieapp.viewmodels.WatchlistViewModel;
 
 import java.util.ArrayList;
@@ -41,6 +42,7 @@ public class WatchlistActivity extends AppCompatActivity implements WatchlistLis
                 new ViewModelProvider.AndroidViewModelFactory(getApplication())).get(WatchlistViewModel.class);
         watchlistBinding.imageBack.setOnClickListener(v -> onBackPressed());
         watchlist = new ArrayList<>();
+        loadWatchlist();
     }
 
     private void loadWatchlist() {
@@ -67,7 +69,10 @@ public class WatchlistActivity extends AppCompatActivity implements WatchlistLis
     @Override
     protected void onResume() {
         super.onResume();
-        loadWatchlist();
+        if (TempDataHolder.IS_WATCHLIST_UPDATE){
+            loadWatchlist();
+            TempDataHolder.IS_WATCHLIST_UPDATE = false;
+        }
     }
 
     @Override
