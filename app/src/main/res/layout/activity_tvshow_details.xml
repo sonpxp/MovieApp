@@ -112,8 +112,7 @@
                     android:src="@drawable/ic_back"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
-                    app:tint="@color/white"
-                    tools:ignore="ContentDescription" />
+                    app:tint="@color/white"/>
 
                 <com.makeramen.roundedimageview.RoundedImageView
                     android:id="@+id/image_rounded_tvShow"

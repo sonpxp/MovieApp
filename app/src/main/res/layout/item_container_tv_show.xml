@@ -88,12 +88,13 @@
             app:layout_constraintStart_toStartOf="@+id/text_name"
             app:layout_constraintTop_toBottomOf="@+id/text_started" />
 
-        <ImageView
+        <ImageButton
             android:id="@+id/image_delete"
             android:layout_width="@dimen/_22sdp"
             android:layout_height="@dimen/_22sdp"
             android:layout_marginEnd="@dimen/_4sdp"
             android:layout_marginBottom="@dimen/_4sdp"
+            android:background="@null"
             android:contentDescription="@string/app_name"
             android:src="@drawable/ic_delete"
             android:visibility="gone"

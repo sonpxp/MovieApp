@@ -7,4 +7,5 @@
     <string name="website">Website</string>
     <string name="title_app_name">TV SHOW</string>
     <string name="watch_list">WatCH List</string>
+    <string name="search_tvshow">Search tvshow</string>
 </resources>
