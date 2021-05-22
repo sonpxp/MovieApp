@@ -19,6 +19,7 @@ import androidx.viewpager2.widget.ViewPager2;
 import com.sonmob.movieapp.R;
 import com.sonmob.movieapp.adapters.ImageSliderAdapter;
 import com.sonmob.movieapp.databinding.ActivityTvshowDetailsBinding;
+import com.sonmob.movieapp.models.TVShow;
 import com.sonmob.movieapp.viewmodels.TVShowDetailsViewModel;
 
 import java.util.Locale;
@@ -27,11 +28,13 @@ public class TVShowDetailsActivity extends AppCompatActivity {
 
     private ActivityTvshowDetailsBinding binding;
     private TVShowDetailsViewModel tvShowDetailsViewModel;
+    private TVShow tvShow;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DataBindingUtil.setContentView(this, R.layout.activity_tvshow_details);
+        tvShow = (TVShow) getIntent().getSerializableExtra("tvShows");
         doInitialization();
     }
 
@@ -43,7 +46,7 @@ public class TVShowDetailsActivity extends AppCompatActivity {
 
     private void getTVShowDetails() {
         binding.setIsLoading(true);
-        String tvShowId = String.valueOf(getIntent().getIntExtra("id", -1));
+        String tvShowId = String.valueOf(tvShow.getId());
         tvShowDetailsViewModel.getTVShowDetails(tvShowId).observe(this, tvShowDetailsResponse -> {
             binding.setIsLoading(false);
             if (tvShowDetailsResponse.getTVShowDetails() != null) {
@@ -143,11 +146,11 @@ public class TVShowDetailsActivity extends AppCompatActivity {
     }
 
     private void loadBaseTVShowDetails() {
-        binding.setTvShowName(getIntent().getStringExtra("name"));
-        binding.setNetworkCountry(getIntent().getStringExtra("network") + "(" +
-                getIntent().getStringExtra("country") + ")");
-        binding.setStatus(getIntent().getStringExtra("status"));
-        binding.setStartedDate(getIntent().getStringExtra("startDate"));
+        binding.setTvShowName(tvShow.getName());
+        binding.setNetworkCountry(tvShow.getNetwork() + "(" +
+                tvShow.getCountry() + ")");
+        binding.setStatus(tvShow.getStatus());
+        binding.setStartedDate(tvShow.getStartDate());
 
         binding.textName.setVisibility(View.VISIBLE);
         binding.textNetworkCountry.setVisibility(View.VISIBLE);

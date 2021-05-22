@@ -1,8 +1,15 @@
 package com.sonmob.movieapp.models;
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.google.gson.annotations.SerializedName;
 
-public class TVShow {
+import java.io.Serializable;
+
+@Entity(tableName = "tvshows")
+public class TVShow implements Serializable {
+    @PrimaryKey
     @SerializedName("id")
     private int id;
 
@@ -24,16 +31,6 @@ public class TVShow {
     @SerializedName("image_thumbnail_path")
     private String thumbnail;
 
-
-    public TVShow(int id, String name, String startDate, String country, String network, String status, String thumbnail) {
-        this.id = id;
-        this.name = name;
-        this.startDate = startDate;
-        this.country = country;
-        this.network = network;
-        this.status = status;
-        this.thumbnail = thumbnail;
-    }
 
     public int getId() {
         return id;

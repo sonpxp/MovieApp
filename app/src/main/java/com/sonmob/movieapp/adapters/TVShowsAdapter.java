@@ -1,7 +1,6 @@
 package com.sonmob.movieapp.adapters;
 
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -19,7 +18,7 @@ public class TVShowsAdapter extends RecyclerView.Adapter<TVShowsAdapter.TVShowVi
 
     private final List<TVShow> tvShows;
     private LayoutInflater layoutInflater;
-    private TVShowsListener tvShowsListener;
+    private final TVShowsListener tvShowsListener;
 
     public TVShowsAdapter(List<TVShow> tvShows, TVShowsListener tvShowsListener) {
         this.tvShows = tvShows;
@@ -50,7 +49,7 @@ public class TVShowsAdapter extends RecyclerView.Adapter<TVShowsAdapter.TVShowVi
 
     public class TVShowViewHolder extends RecyclerView.ViewHolder {
 
-        private ItemContainerTvShowBinding itemContainerTvShowBinding;
+        private final ItemContainerTvShowBinding itemContainerTvShowBinding;
 
         public TVShowViewHolder(ItemContainerTvShowBinding itemContainerTvShowBinding) {
             super(itemContainerTvShowBinding.getRoot());
@@ -60,12 +59,7 @@ public class TVShowsAdapter extends RecyclerView.Adapter<TVShowsAdapter.TVShowVi
         public void bindTVShow(TVShow tvShow) {
             itemContainerTvShowBinding.setTvShow(tvShow);
             itemContainerTvShowBinding.executePendingBindings();
-            itemContainerTvShowBinding.getRoot().setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    tvShowsListener.onTVShowClicked(tvShow);
-                }
-            });
+            itemContainerTvShowBinding.getRoot().setOnClickListener(v -> tvShowsListener.onTVShowClicked(tvShow));
         }
     }
 }
