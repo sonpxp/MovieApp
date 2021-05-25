@@ -155,7 +155,7 @@ public class TVShowDetails2Activity extends AppCompatActivity {
         ImageSlider2Adapter slider2Adapter = new ImageSlider2Adapter(sliderImages);
         binding.imageSlider.setSliderAdapter(slider2Adapter);
         binding.imageSlider.setIndicatorAnimation(IndicatorAnimationType.WORM);
-        binding.imageSlider.setSliderTransformAnimation(SliderAnimations.DEPTHTRANSFORMATION);
+        binding.imageSlider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
         binding.imageSlider.startAutoCycle();
 
         binding.imageSlider.setVisibility(View.VISIBLE);

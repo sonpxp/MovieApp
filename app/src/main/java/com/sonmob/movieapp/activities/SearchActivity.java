@@ -133,7 +133,7 @@ public class SearchActivity extends AppCompatActivity implements TVShowsListener
 
     @Override
     public void onTVShowClicked(TVShow tvShow) {
-        Intent intent = new Intent(getApplicationContext(), TVShowDetailsActivity.class);
+        Intent intent = new Intent(getApplicationContext(), TVShowDetails2Activity.class);
         intent.putExtra("tvShow", tvShow);
         startActivity(intent);
     }
