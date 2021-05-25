@@ -64,12 +64,32 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-                <androidx.viewpager2.widget.ViewPager2
-                    android:id="@+id/pager_slider"
+                <!--<androidx.viewpager2.widget.ViewPager2
+                    android:id="@+id/image_slider"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/_160sdp"
                     android:visibility="gone"
-                    app:layout_constraintTop_toTopOf="parent" />
+                    app:layout_constraintTop_toTopOf="parent" />-->
+
+                <com.smarteist.autoimageslider.SliderView
+                    android:id="@+id/image_slider"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/_160sdp"
+                    app:sliderAnimationDuration="600"
+                    app:sliderAutoCycleDirection="back_and_forth"
+                    app:sliderAutoCycleEnabled="true"
+                    app:sliderIndicatorAnimationDuration="600"
+                    app:sliderIndicatorGravity="end|bottom"
+                    app:sliderIndicatorMargin="15dp"
+                    app:sliderIndicatorOrientation="horizontal"
+                    app:sliderIndicatorPadding="2dp"
+                    app:sliderIndicatorRadius="2dp"
+                    android:visibility="gone"
+                    app:sliderIndicatorSelectedColor="@color/white"
+                    app:sliderIndicatorUnselectedColor="#FFC107"
+                    app:sliderScrollTimeInSec="1"
+                    app:sliderStartAutoCycle="true"
+                    app:layout_constraintTop_toTopOf="parent"/>
 
                 <View
                     android:id="@+id/view_fadingEdge"
@@ -77,7 +97,7 @@
                     android:layout_height="@dimen/_40sdp"
                     android:background="@drawable/bg_fading_edge"
                     android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/pager_slider" />
+                    app:layout_constraintBottom_toBottomOf="@+id/image_slider" />
 
                 <LinearLayout
                     android:id="@+id/linear_slider_indicators"
@@ -87,19 +107,10 @@
                     android:orientation="horizontal"
                     android:padding="@dimen/_8sdp"
                     android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/pager_slider"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_slider"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/image_rounded_tvShow" />
 
-                <me.relex.circleindicator.CircleIndicator3
-                    android:id="@+id/indicator_images"
-                    android:layout_width="wrap_content"
-                    android:layout_height="@dimen/_30sdp"
-                    android:visibility="gone"
-                    app:ci_gravity="end"
-                    app:layout_constraintBottom_toBottomOf="@+id/pager_slider"
-                    app:layout_constraintEnd_toEndOf="parent"
-                    app:layout_constraintStart_toEndOf="@id/image_rounded_tvShow" />
 
                 <ImageButton
                     android:id="@+id/image_back"
@@ -122,9 +133,9 @@
                     android:imageURL="@{tvShowImageURL}"
                     android:scaleType="centerCrop"
                     android:visibility="gone"
-                    app:layout_constraintBottom_toBottomOf="@+id/pager_slider"
+                    app:layout_constraintBottom_toBottomOf="@+id/image_slider"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/pager_slider"
+                    app:layout_constraintTop_toBottomOf="@+id/image_slider"
                     app:riv_corner_radius="@dimen/_6sdp" />
 
                 <TextView
@@ -140,7 +151,7 @@
                     android:visibility="gone"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@id/image_rounded_tvShow"
-                    app:layout_constraintTop_toBottomOf="@id/pager_slider" />
+                    app:layout_constraintTop_toBottomOf="@id/image_slider" />
 
                 <TextView
                     android:id="@+id/text_network_country"

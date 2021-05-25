@@ -77,4 +77,8 @@ dependencies {
     // alternately - if using Java8, use the following instead of lifecycle-compiler
     implementation "androidx.lifecycle:lifecycle-common-java8:2.3.1"
 
+    //imageslide
+    implementation 'com.github.smarteist:autoimageslider:1.4.0'
+
+
 }

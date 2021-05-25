@@ -2,7 +2,6 @@ package com.sonmob.movieapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -90,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements TVShowsListener {
 
     @Override
     public void onTVShowClicked(TVShow tvShow) {
-        Intent intent = new Intent(getApplicationContext(), TVShowDetailsActivity.class);
+        Intent intent = new Intent(getApplicationContext(), TVShowDetails2Activity.class);
         intent.putExtra("tvShow", tvShow);
         startActivity(intent);
     }
