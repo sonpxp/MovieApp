@@ -89,7 +89,7 @@ public class MainActivity extends AppCompatActivity implements TVShowsListener {
 
     @Override
     public void onTVShowClicked(TVShow tvShow) {
-        Intent intent = new Intent(getApplicationContext(), TVShowDetails2Activity.class);
+        Intent intent = new Intent(getApplicationContext(), TVShowDetailsActivity.class);
         intent.putExtra("tvShow", tvShow);
         startActivity(intent);
     }

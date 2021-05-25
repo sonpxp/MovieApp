@@ -15,11 +15,9 @@ import android.text.TextWatcher;
 
 import com.sonmob.movieapp.R;
 import com.sonmob.movieapp.adapters.TVShowsAdapter;
-import com.sonmob.movieapp.databinding.ActivityMainBinding;
 import com.sonmob.movieapp.databinding.ActivitySearchBinding;
 import com.sonmob.movieapp.listeners.TVShowsListener;
 import com.sonmob.movieapp.models.TVShow;
-import com.sonmob.movieapp.viewmodels.MostPopularTVShowsViewModel;
 import com.sonmob.movieapp.viewmodels.SearchViewModel;
 
 import org.jetbrains.annotations.NotNull;
@@ -133,7 +131,7 @@ public class SearchActivity extends AppCompatActivity implements TVShowsListener
 
     @Override
     public void onTVShowClicked(TVShow tvShow) {
-        Intent intent = new Intent(getApplicationContext(), TVShowDetails2Activity.class);
+        Intent intent = new Intent(getApplicationContext(), TVShowDetailsActivity.class);
         intent.putExtra("tvShow", tvShow);
         startActivity(intent);
     }

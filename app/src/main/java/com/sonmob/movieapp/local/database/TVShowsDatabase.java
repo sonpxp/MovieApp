@@ -1,4 +1,4 @@
-package com.sonmob.movieapp.database;
+package com.sonmob.movieapp.local.database;
 
 import android.content.Context;
 
@@ -6,7 +6,7 @@ import androidx.room.Database;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 
-import com.sonmob.movieapp.dao.TVShowDao;
+import com.sonmob.movieapp.local.dao.TVShowDao;
 import com.sonmob.movieapp.models.TVShow;
 
 @Database(entities = TVShow.class, version = 1, exportSchema = false)

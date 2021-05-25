@@ -5,7 +5,7 @@ import android.app.Application;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 
-import com.sonmob.movieapp.database.TVShowsDatabase;
+import com.sonmob.movieapp.local.database.TVShowsDatabase;
 import com.sonmob.movieapp.models.TVShow;
 
 import org.jetbrains.annotations.NotNull;
@@ -31,4 +31,5 @@ public class WatchlistViewModel extends AndroidViewModel {
     public Completable removeTVShowFromWatchlist(TVShow tvShow) {
         return tvShowsDatabase.tvShowDao().removeFromWatchlist(tvShow);
     }
+
 }

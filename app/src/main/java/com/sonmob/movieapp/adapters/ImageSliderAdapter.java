@@ -5,14 +5,14 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.RecyclerView;
 
+import com.smarteist.autoimageslider.SliderViewAdapter;
 import com.sonmob.movieapp.R;
 import com.sonmob.movieapp.databinding.ItemContainerSliderImageBinding;
 
 import org.jetbrains.annotations.NotNull;
 
-public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.ImageSliderViewHolder> {
+public class ImageSliderAdapter extends SliderViewAdapter<ImageSliderAdapter.ImageSliderViewHolder> {
 
     private final String[] sliderImages;
     private LayoutInflater layoutInflater;
@@ -22,10 +22,9 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
     }
 
     @NonNull
-    @NotNull
     @Override
-    public ImageSliderViewHolder onCreateViewHolder(@NonNull @NotNull ViewGroup parent, int viewType) {
-        if (layoutInflater == null){
+    public ImageSliderViewHolder onCreateViewHolder(ViewGroup parent) {
+        if (layoutInflater == null) {
             layoutInflater = LayoutInflater.from(parent.getContext());
         }
         ItemContainerSliderImageBinding sliderImageBinding = DataBindingUtil.inflate(
@@ -40,11 +39,11 @@ public class ImageSliderAdapter extends RecyclerView.Adapter<ImageSliderAdapter.
     }
 
     @Override
-    public int getItemCount() {
+    public int getCount() {
         return sliderImages.length;
     }
 
-    public static class ImageSliderViewHolder extends RecyclerView.ViewHolder {
+    public static class ImageSliderViewHolder extends SliderViewAdapter.ViewHolder {
         private final ItemContainerSliderImageBinding itemContainerSliderImageBinding;
 
         public ImageSliderViewHolder(ItemContainerSliderImageBinding itemContainerSliderImageBinding) {

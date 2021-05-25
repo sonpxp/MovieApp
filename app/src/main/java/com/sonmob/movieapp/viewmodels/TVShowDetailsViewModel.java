@@ -6,7 +6,7 @@ import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
-import com.sonmob.movieapp.database.TVShowsDatabase;
+import com.sonmob.movieapp.local.database.TVShowsDatabase;
 import com.sonmob.movieapp.models.TVShow;
 import com.sonmob.movieapp.reponsitories.TVShowDetailsReponsitory;
 import com.sonmob.movieapp.responses.TVShowDetailsResponse;

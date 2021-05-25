@@ -3,6 +3,7 @@ package com.sonmob.movieapp.activities;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
@@ -52,24 +53,26 @@ public class WatchlistActivity extends AppCompatActivity implements WatchlistLis
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(tvShows -> {
-                    watchlistBinding.setIsLoading(false);
-                    if (watchlist.size() > 0) {
-                        watchlist.clear();
-                    }
-                    watchlist.addAll(tvShows);
-                    watchlistAdapter = new WatchlistAdapter(watchlist, this);
-                    watchlistBinding.rcvWatchlist.setAdapter(watchlistAdapter);
-                    watchlistBinding.rcvWatchlist.setVisibility(View.VISIBLE);
-                    disposable.dispose();
-
-                }));
+                            watchlistBinding.setIsLoading(false);
+                            if (watchlist.size() > 0) {
+                                watchlist.clear();
+                            }
+                            watchlist.addAll(tvShows);
+                            watchlistAdapter = new WatchlistAdapter(watchlist, this);
+                            watchlistBinding.rcvWatchlist.setAdapter(watchlistAdapter);
+                            watchlistBinding.rcvWatchlist.setVisibility(View.VISIBLE);
+                            //disposable.dispose();
+                        }, throwable -> {
+                            Toast.makeText(this, "Error data: " + throwable, Toast.LENGTH_SHORT).show();
+                        }
+                ));
 
     }
 
     @Override
     protected void onResume() {
         super.onResume();
-        if (TempDataHolder.IS_WATCHLIST_UPDATE){
+        if (TempDataHolder.IS_WATCHLIST_UPDATE) {
             loadWatchlist();
             TempDataHolder.IS_WATCHLIST_UPDATE = false;
         }
@@ -77,7 +80,7 @@ public class WatchlistActivity extends AppCompatActivity implements WatchlistLis
 
     @Override
     public void onTVShowClicked(TVShow tvShow) {
-        Intent intent = new Intent(getApplicationContext(), TVShowDetails2Activity.class);
+        Intent intent = new Intent(getApplicationContext(), TVShowDetailsActivity.class);
         intent.putExtra("tvShow", tvShow);
         startActivity(intent);
     }
@@ -90,11 +93,13 @@ public class WatchlistActivity extends AppCompatActivity implements WatchlistLis
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {
-                    watchlist.remove(position);
-                    watchlistAdapter.notifyItemRemoved(position);
-                    watchlistAdapter.notifyItemChanged(position, watchlistAdapter.getItemCount());
-                    disposableDelete.dispose();
-
-                }));
+                            watchlist.remove(position);
+                            watchlistAdapter.notifyItemRemoved(position);
+                            watchlistAdapter.notifyItemChanged(position, watchlistAdapter.getItemCount());
+                            //disposableDelete.dispose();
+                        }, throwable -> {
+                            Toast.makeText(this, "Remove error: " + throwable, Toast.LENGTH_SHORT).show();
+                        }
+                ));
     }
 }

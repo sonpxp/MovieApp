@@ -15,7 +15,6 @@
         <activity android:name=".activities.SearchActivity"></activity>
         <activity android:name=".activities.WatchlistActivity" />
         <activity android:name=".activities.TVShowDetailsActivity" />
-        <activity android:name=".activities.TVShowDetails2Activity" />
         <activity android:name=".activities.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

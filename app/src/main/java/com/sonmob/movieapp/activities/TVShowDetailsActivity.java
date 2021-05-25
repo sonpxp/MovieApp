@@ -5,18 +5,15 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
-import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.content.ContextCompat;
 import androidx.core.text.HtmlCompat;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
-import androidx.viewpager2.widget.ViewPager2;
 
+import com.smarteist.autoimageslider.IndicatorView.animation.type.IndicatorAnimationType;
+import com.smarteist.autoimageslider.SliderAnimations;
 import com.sonmob.movieapp.R;
 import com.sonmob.movieapp.adapters.ImageSliderAdapter;
 import com.sonmob.movieapp.databinding.ActivityTvshowDetailsBinding;
@@ -61,10 +58,13 @@ public class TVShowDetailsActivity extends AppCompatActivity {
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(tvShow -> {
-                    isWatchlistAvailable = true;
-                    binding.imageWatchlist.setImageResource(R.drawable.ic_added);
-                    disposable.dispose();
-                }));
+                            isWatchlistAvailable = true;
+                            binding.imageWatchlist.setImageResource(R.drawable.ic_added);
+                            //disposable.dispose();
+                        }, throwable -> {
+                            Toast.makeText(this, "Error: " + throwable, Toast.LENGTH_SHORT).show();
+                        }
+                ));
     }
 
     //get data va hien thi
@@ -75,8 +75,7 @@ public class TVShowDetailsActivity extends AppCompatActivity {
             binding.setIsLoading(false);
             if (tvShowDetailsResponse.getTVShowDetails() != null) {
                 if (tvShowDetailsResponse.getTVShowDetails().getPictures() != null) {
-                    //loadImageSlider(tvShowDetailsResponse.getTVShowDetails().getPictures());
-
+                    loadImageSlider(tvShowDetailsResponse.getTVShowDetails().getPictures());
                 }
                 binding.setTvShowImageURL(tvShowDetailsResponse.getTVShowDetails().getImagePath());
                 binding.imageRoundedTvShow.setVisibility(View.VISIBLE);
@@ -132,7 +131,9 @@ public class TVShowDetailsActivity extends AppCompatActivity {
                                     TempDataHolder.IS_WATCHLIST_UPDATE = true;
                                     binding.imageWatchlist.setImageResource(R.drawable.ic_watchlist);
                                     Toast.makeText(TVShowDetailsActivity.this, "Remove from watchlist", Toast.LENGTH_SHORT).show();
-                                    disposable.dispose();
+                                    //disposable.dispose();
+                                }, throwable -> {
+                                    Toast.makeText(this, "Remove from watchlist error: " + throwable, Toast.LENGTH_SHORT).show();
                                 })
                         );
                     } else {
@@ -143,7 +144,9 @@ public class TVShowDetailsActivity extends AppCompatActivity {
                                     TempDataHolder.IS_WATCHLIST_UPDATE = true;
                                     binding.imageWatchlist.setImageResource(R.drawable.ic_added);
                                     Toast.makeText(TVShowDetailsActivity.this, "Added to watchlist", Toast.LENGTH_SHORT).show();
-                                    disposable.dispose();
+                                    //disposable.dispose();
+                                }, throwable -> {
+                                    Toast.makeText(this, "Added from watchlist error: " + throwable, Toast.LENGTH_SHORT).show();
                                 })
                         );
                     }
@@ -154,49 +157,15 @@ public class TVShowDetailsActivity extends AppCompatActivity {
         });
     }
 
-/*    private void loadImageSlider(String[] sliderImages) {
-        binding.pagerSlider.setOffscreenPageLimit(1);
-        binding.pagerSlider.setAdapter(new ImageSliderAdapter(sliderImages));
-        binding.pagerSlider.setVisibility(View.VISIBLE);
+    private void loadImageSlider(String[] sliderImages) {
+        ImageSliderAdapter slider2Adapter = new ImageSliderAdapter(sliderImages);
+        binding.imageSlider.setSliderAdapter(slider2Adapter);
+        binding.imageSlider.setIndicatorAnimation(IndicatorAnimationType.WORM);
+        binding.imageSlider.setSliderTransformAnimation(SliderAnimations.SIMPLETRANSFORMATION);
+        binding.imageSlider.startAutoCycle();
+
+        binding.imageSlider.setVisibility(View.VISIBLE);
         binding.viewFadingEdge.setVisibility(View.VISIBLE);
-        setUpSliderIndicators(sliderImages.length);
-        binding.pagerSlider.registerOnPageChangeCallback(new ViewPager2.OnPageChangeCallback() {
-            @Override
-            public void onPageSelected(int position) {
-                super.onPageSelected(position);
-                setCurrentSliderIndicator(position);
-            }
-        });
-    }*/
-
-    private void setUpSliderIndicators(int count) {
-        ImageView[] indicators = new ImageView[count];
-        LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(
-                ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        layoutParams.setMargins(8, 0, 8, 0);
-        for (int i = 0; i < indicators.length; i++) {
-            indicators[i] = new ImageView(getApplicationContext());
-            indicators[i].setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
-                    R.drawable.bg_slider_indicator_inactive));
-            indicators[i].setLayoutParams(layoutParams);
-            binding.linearSliderIndicators.addView(indicators[i]);
-        }
-        binding.linearSliderIndicators.setVisibility(View.VISIBLE);
-        setCurrentSliderIndicator(0);
-    }
-
-    private void setCurrentSliderIndicator(int position) {
-        int childCount = binding.linearSliderIndicators.getChildCount();
-        for (int i = 0; i < childCount; i++) {
-            ImageView imageView = (ImageView) binding.linearSliderIndicators.getChildAt(i);
-            if (i == position) {
-                imageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
-                        R.drawable.bg_slider_indicator_active));
-            } else {
-                imageView.setImageDrawable(ContextCompat.getDrawable(getApplicationContext(),
-                        R.drawable.bg_slider_indicator_inactive));
-            }
-        }
     }
 
     private void loadBaseTVShowDetails() {

@@ -1,4 +1,4 @@
-package com.sonmob.movieapp.dao;
+package com.sonmob.movieapp.local.dao;
 
 import androidx.room.Dao;
 import androidx.room.Delete;
