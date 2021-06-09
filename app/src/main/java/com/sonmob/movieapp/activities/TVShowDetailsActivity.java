@@ -33,6 +33,7 @@ public class TVShowDetailsActivity extends AppCompatActivity {
     private TVShowDetailsViewModel tvShowDetailsViewModel;
     private TVShow tvShow;
     private Boolean isWatchlistAvailable = false;
+    private CompositeDisposable disposable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +54,13 @@ public class TVShowDetailsActivity extends AppCompatActivity {
 
     //kiem tra xem phim da duoc add vao watchlist chua, add roi thi thay icon check
     private void checkTVShowInWatchlist() {
-        CompositeDisposable disposable = new CompositeDisposable();
+        disposable = new CompositeDisposable();
         disposable.add(tvShowDetailsViewModel.getTVShowFromWatchlist(String.valueOf(tvShow.getId()))
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(tvShow -> {
                             isWatchlistAvailable = true;
                             binding.imageWatchlist.setImageResource(R.drawable.ic_added);
-                            //disposable.dispose();
                         }, throwable -> {
                             Toast.makeText(this, "Error: " + throwable, Toast.LENGTH_SHORT).show();
                         }

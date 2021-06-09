@@ -2,6 +2,7 @@ package com.sonmob.movieapp.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -30,6 +31,7 @@ public class WatchlistActivity extends AppCompatActivity implements WatchlistLis
     private WatchlistViewModel watchlistViewModel;
     private WatchlistAdapter watchlistAdapter;
     private List<TVShow> watchlist;
+    private CompositeDisposable disposable;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,7 +50,7 @@ public class WatchlistActivity extends AppCompatActivity implements WatchlistLis
 
     private void loadWatchlist() {
         watchlistBinding.setIsLoading(true);
-        CompositeDisposable disposable = new CompositeDisposable();
+        disposable = new CompositeDisposable();
         disposable.add(watchlistViewModel.loadWatchlist()
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -69,14 +71,6 @@ public class WatchlistActivity extends AppCompatActivity implements WatchlistLis
 
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        if (TempDataHolder.IS_WATCHLIST_UPDATE) {
-            loadWatchlist();
-            TempDataHolder.IS_WATCHLIST_UPDATE = false;
-        }
-    }
 
     @Override
     public void onTVShowClicked(TVShow tvShow) {
@@ -88,18 +82,33 @@ public class WatchlistActivity extends AppCompatActivity implements WatchlistLis
     @Override
     public void removeTVShowFromWatchlist(TVShow tvShow, int position) {
 
-        CompositeDisposable disposableDelete = new CompositeDisposable();
-        disposableDelete.add(watchlistViewModel.removeTVShowFromWatchlist(tvShow)
+        disposable = new CompositeDisposable();
+        disposable.add(watchlistViewModel.removeTVShowFromWatchlist(tvShow)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(() -> {
                             watchlist.remove(position);
                             watchlistAdapter.notifyItemRemoved(position);
                             watchlistAdapter.notifyItemChanged(position, watchlistAdapter.getItemCount());
-                            //disposableDelete.dispose();
                         }, throwable -> {
                             Toast.makeText(this, "Remove error: " + throwable, Toast.LENGTH_SHORT).show();
                         }
                 ));
+    }
+
+    @Override
+    protected void onResume() {
+        Log.e("msg", "onResume");
+        super.onResume();
+        if (TempDataHolder.IS_WATCHLIST_UPDATE) {
+            loadWatchlist();
+            TempDataHolder.IS_WATCHLIST_UPDATE = false;
+        }
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        disposable.dispose();
     }
 }
