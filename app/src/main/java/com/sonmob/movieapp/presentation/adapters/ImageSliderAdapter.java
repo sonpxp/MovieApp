@@ -10,8 +10,6 @@ import com.smarteist.autoimageslider.SliderViewAdapter;
 import com.sonmob.movieapp.R;
 import com.sonmob.movieapp.databinding.ItemContainerSliderImageBinding;
 
-import org.jetbrains.annotations.NotNull;
-
 public class ImageSliderAdapter extends SliderViewAdapter<ImageSliderAdapter.ImageSliderViewHolder> {
 
     private final String[] sliderImages;
@@ -34,7 +32,7 @@ public class ImageSliderAdapter extends SliderViewAdapter<ImageSliderAdapter.Ima
     }
 
     @Override
-    public void onBindViewHolder(@NonNull @NotNull ImageSliderAdapter.ImageSliderViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull ImageSliderAdapter.ImageSliderViewHolder holder, int position) {
         holder.bindSliderImage(sliderImages[position]);
     }
 

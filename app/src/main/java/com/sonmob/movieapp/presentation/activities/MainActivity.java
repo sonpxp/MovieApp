@@ -2,6 +2,7 @@ package com.sonmob.movieapp.presentation.activities;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,20 +11,18 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.sonmob.movieapp.R;
-import com.sonmob.movieapp.presentation.adapters.TVShowsAdapter;
-import com.sonmob.movieapp.databinding.ActivityMainBinding;
-import com.sonmob.movieapp.presentation.listeners.TVShowsListener;
 import com.sonmob.movieapp.data.models.TVShow;
+import com.sonmob.movieapp.databinding.ActivityMainBinding;
+import com.sonmob.movieapp.presentation.adapters.TVShowsAdapter;
+import com.sonmob.movieapp.presentation.listeners.TVShowsListener;
 import com.sonmob.movieapp.presentation.viewmodels.MostPopularTVShowsViewModel;
-
-import org.jetbrains.annotations.NotNull;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity implements TVShowsListener {
 
-    private ActivityMainBinding mainBinding;
+    private ActivityMainBinding binding;
     private MostPopularTVShowsViewModel viewModel;
     private final List<TVShow> tvShows = new ArrayList<>();
     private TVShowsAdapter tvShowsAdapter;
@@ -33,20 +32,20 @@ public class MainActivity extends AppCompatActivity implements TVShowsListener {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mainBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        binding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         doInitialization();
     }
 
     private void doInitialization() {
-        mainBinding.tvShowRecyclerView.setHasFixedSize(true);
+        binding.tvShowRecyclerView.setHasFixedSize(true);
         viewModel = new ViewModelProvider(this).get(MostPopularTVShowsViewModel.class);
         tvShowsAdapter = new TVShowsAdapter(tvShows, this);
-        mainBinding.tvShowRecyclerView.setAdapter(tvShowsAdapter);
-        mainBinding.tvShowRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+        binding.tvShowRecyclerView.setAdapter(tvShowsAdapter);
+        binding.tvShowRecyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
-            public void onScrolled(@NonNull @NotNull RecyclerView recyclerView, int dx, int dy) {
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
                 super.onScrolled(recyclerView, dx, dy);
-                if (!mainBinding.tvShowRecyclerView.canScrollVertically(1)) {
+                if (!binding.tvShowRecyclerView.canScrollVertically(1)) {
                     if (currentPage <= totalAvailablePages) {
                         currentPage += 1;
                         getMostPopularTVShow();
@@ -54,10 +53,9 @@ public class MainActivity extends AppCompatActivity implements TVShowsListener {
                 }
             }
         });
-        mainBinding.imageWatchList.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), WatchlistActivity.class)));
-        mainBinding.imageSearch.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SearchActivity.class)));
+        binding.imageWatchList.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), WatchlistActivity.class)));
+        binding.imageSearch.setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SearchActivity.class)));
         getMostPopularTVShow();
-
     }
 
     private void getMostPopularTVShow() {
@@ -79,11 +77,11 @@ public class MainActivity extends AppCompatActivity implements TVShowsListener {
 
     private void toggleLoading() {
         if (currentPage == 1) {
-            mainBinding.setIsLoading(mainBinding.getIsLoading() == null ||
-                    !mainBinding.getIsLoading());
+            binding.setIsLoading(binding.getIsLoading() == null ||
+                    !binding.getIsLoading());
         } else {
-            mainBinding.setIsLoadingMore(mainBinding.getIsLoadingMore() == null ||
-                    !mainBinding.getIsLoadingMore());
+            binding.setIsLoadingMore(binding.getIsLoadingMore() == null ||
+                    !binding.getIsLoadingMore());
         }
     }
 
