@@ -6,7 +6,7 @@
 
         <variable
             name="tvShow"
-            type="com.sonmob.movieapp.models.TVShow" />
+            type="com.sonmob.movieapp.data.models.TVShow" />
     </data>
 
     <androidx.constraintlayout.widget.ConstraintLayout

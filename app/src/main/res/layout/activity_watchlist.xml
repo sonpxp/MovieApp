@@ -17,7 +17,7 @@
         android:layout_height="match_parent"
         android:animateLayoutChanges="true"
         android:background="@color/tim"
-        tools:context=".activities.WatchlistActivity">
+        tools:context=".presentation.activities.WatchlistActivity">
 
         <LinearLayout
             android:id="@+id/linear_header"

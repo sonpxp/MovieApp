@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.sonmob.movieapp">
+<manifest xmlns:android="http://schemas.android.com/apk/res/android">
 
     <uses-permission android:name="android.permission.INTERNET" />
 
@@ -12,10 +11,14 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MovieApp"
         android:usesCleartextTraffic="true">
-        <activity android:name=".activities.SearchActivity"></activity>
-        <activity android:name=".activities.WatchlistActivity" />
-        <activity android:name=".activities.TVShowDetailsActivity" />
-        <activity android:name=".activities.MainActivity">
+
+        <activity android:name=".presentation.activities.SearchActivity" />
+        <activity android:name=".presentation.activities.WatchlistActivity" />
+        <activity android:name=".presentation.activities.TVShowDetailsActivity" />
+
+        <activity
+            android:name=".presentation.activities.MainActivity"
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
